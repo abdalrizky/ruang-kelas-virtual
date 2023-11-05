@@ -15,13 +15,13 @@ def login_as_teacher(username, password):
 
 # Fungsi untuk memproses login siswa
 def login_as_student(nim, password):
-    result_nim = query.search_nim(nim)
-    if result_nim is not None:
-        if nim == result_nim["nim"] and password == "mhs":
+    result = query.search_nim(nim)
+    if result is not None:
+        if nim == result["nim"] and password == "mhs":
             global_variable.session = {
                 "role": "student",
-                "name": result_nim["name"],
-                "nim": result_nim["nim"],
+                "name": result["name"],
+                "nim": result["nim"],
             }
             return True
     else:
