@@ -27,7 +27,6 @@ def show_main_menu():
                     print("1. Masukkan nomor tugas untuk melihat rincian tugas")
                     print("2. + untuk menambahkan tugas")
                     print("3. B untuk kembali ke menu sebelumnya")
-                    print('Asku telah disini')
                 else:
                     print("Belum ada tugas yang dibuat")
                     print()
