@@ -1,11 +1,18 @@
 # Fungsi untuk membuat tugas baru
+from common_modules import csv
+
+
 def create():
     print()
 
 
 # Fungsi untuk menampilkan semua tugas
 def show_all():
-    print("Ini tugas yang ada")
+    assignments = csv.read('database/assignments.csv')
+    return {
+        "count": len(assignments),
+        "assignments": assignments
+    }
 
 
 # Fungsi untuk mengubah rincian tugas

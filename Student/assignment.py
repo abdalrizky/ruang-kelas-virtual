@@ -1,15 +1,9 @@
+from common_modules import csv
+
+
 # Fungsi untuk mendapatkan data lengkap tugas
 def get_assignments():
-    return {
-        "count": 1,
-        "assignments": [
-            {
-                "status": "finish",
-                "name": "Tugas 1",
-                "grade": None
-            }
-        ]
-    }
+    print()
 
 
 # Fungsi untuk mengerjakan tugas
