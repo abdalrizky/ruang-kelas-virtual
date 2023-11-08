@@ -2,8 +2,12 @@
 from common_modules import csv
 
 
-def create():
-    print()
+def create(title, description, due_date):
+    csv.write(
+        "database/assignments.csv",
+        [title, description, due_date]
+    )
+    return True
 
 
 # Fungsi untuk menampilkan semua tugas

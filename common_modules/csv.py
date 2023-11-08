@@ -17,3 +17,8 @@ def read(path):
         for row in csv_obj:
             data.append(row)
     return data
+
+def write(path, data):
+    with open(path, "a", newline="") as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(data)
