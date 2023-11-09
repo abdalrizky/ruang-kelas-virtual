@@ -18,7 +18,21 @@ def read(path):
             data.append(row)
     return data
 
+
 def write(path, data):
     with open(path, "a", newline="") as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(data)
+
+
+def get_last_item(path):
+    rows = []
+
+    with open(path) as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            rows.append(row)
+
+    if len(rows) > 0:
+        last_row = rows[-1]
+        return last_row
