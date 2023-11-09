@@ -3,37 +3,78 @@ from Teacher import assignment
 from common_modules import csv, global_variable
 
 
-def show_assignment_detail(selected_menu):
-
-    assignment_id = int(selected_menu)-1
-    assignment_detail = assignment.get_detail(assignment_id)[0]
+def show_assignment_detail(id):
+    assignment_id = int(id)
+    assignment_detail = assignment.get_detail(assignment_id)
 
     if assignment_detail is not None:
 
         assignment_status = assignment.get_status(assignment_id)
 
         print(f"{assignment_detail['title']}")
-        print(f"Batas waktu: {(assignment_detail['due_date'] if len(assignment_detail['due_date']) != 0 else 'Tidak ada')} ")
+        print(
+            f"Batas waktu: {(assignment_detail['due_date'] if len(assignment_detail['due_date']) != 0 else 'Tidak ada')} ")
 
-        print("Siswa yang sudah mengerjakan tugas ini:")
-        # finished = [student for student in assignment_status if assignment_status["assignment_id"] == str(assignment_id)]
-        # print(finished)
-        # for index, item in enumerate(assignment_status):
-        #     print(f"{index+1}. {item}")
+        print(f"Siswa yang sudah mengerjakan tugas ini: {'' if len(assignment_status) != 0 else '-'}")
+        for index, student in enumerate(assignment_status):
+            print(f"{index + 1}. {student['student_id']}")
 
         print("Petunjuk:")
         print("1. E untuk mengubah nama tugas")
         print("2. ED untuk mengubah batas waktu")
         print("3. - untuk menghapus tugas")
         print("4. B untuk kembali ke menu sebelumnya")
+
         selected_menu = input("Silakan pilih menu >> ").upper()
         match selected_menu:
             case "E":
-                print()
+                _title = input("Masukkan judul tugas baru (kosongkan apabila ingin membatalkan) >> ")
+
+                due_date = assignment_detail["due_date"]
+                description = assignment_detail["description"]
+
+                title = _title if len(_title) != 0 else assignment_detail["title"]
+
+                assignment_update = assignment.update(
+                    assignment_id,
+                    {"title": title, "description": description, "due_date": due_date}
+                )
+
+                if assignment_update:
+                    print("Judul berhasil diubah!")
+                else:
+                    print("Judul gagal diubah!")
+
             case "ED":
-                print()
+                _due_date = input("Masukkan batas waktu baru (kosongkan apabila ingin membatalkan) >> ")
+
+                title = assignment_detail["title"]
+                description = assignment_detail["description"]
+
+                due_date = _due_date if len(_due_date) != 0 else assignment_detail["due_date"]
+
+                assignment_update = assignment.update(
+                    assignment_id,
+                    {"title": title, "description": description, "due_date": due_date}
+                )
+
+                if assignment_update:
+                    print("Batas waktu tugas berhasil diubah!")
+                else:
+                    print("Batas waktu tugas gagal diubah!")
             case "-":
-                print()
+                delete_decision = input("Yakin ingin menghapus tugas ini? Status siswa yang mengerjakan tugas juga "
+                                        "akan terhapus (y/n) >> ").upper()
+                match delete_decision:
+                    case "Y":
+                        assignment_delete = assignment.delete(assignment_id)
+                        if assignment_delete:
+                            print("Tugas berhasil dihapus!")
+                        else:
+                            print("Tugas berhasil dihapus!")
+                    case "N":
+                        print("Operasi dibatalkan")
+                show_assignment_detail(id)
             case "B":
                 show_assignment_manage_menu()
     else:
@@ -47,7 +88,7 @@ def show_assignment_manage_menu():
             print(f"Ada {assignments['count']} tugas:")
 
             for index, item in enumerate(assignments["assignments"]):
-                print(f"{index + 1}. {item['title']}")
+                print(f"{item['id']} {item['title']}")
 
             print("Petunjuk:")
             print("1. Masukkan nomor tugas untuk melihat rincian tugas")
@@ -62,7 +103,7 @@ def show_assignment_manage_menu():
 
         selected_menu = input("Silakan pilih menu >> ").upper()
         if selected_menu.lstrip("-").isdigit():
-            if int(selected_menu) >= 1:
+            if int(selected_menu) >= 0:
                 show_assignment_detail(selected_menu)
             else:
                 print("Silakan masukkan angka yang valid")

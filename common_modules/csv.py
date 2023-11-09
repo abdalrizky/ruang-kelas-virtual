@@ -25,6 +25,28 @@ def write(path, data):
         writer.writerow(data)
 
 
+def edit_row(path, index, new_data):
+    with open(path, 'r') as file:
+        csv_reader = csv.reader(file)
+        last_data = list(csv_reader)
+
+    last_data[index + 1] = new_data
+    with open(path, 'w', newline='') as file:
+        csv_writer = csv.writer(file)
+        csv_writer.writerows(last_data)
+
+
+def delete_row(path, index):
+    with open(path, 'r') as file:
+        csv_reader = csv.reader(file)
+        last_data = list(csv_reader)
+
+    del last_data[index + 1]
+    with open(path, 'w', newline='') as file:
+        csv_writer = csv.writer(file)
+        csv_writer.writerows(last_data)
+
+
 def get_last_item(path):
     rows = []
 

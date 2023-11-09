@@ -17,7 +17,8 @@ def create(title, description, due_date):
 
 def get_status(id):
     assignment_status = csv.read('database/assignment_status.csv')
-    return assignment_status
+    finished_students = [student for student in assignment_status if student["assignment_id"] == str(id)]
+    return finished_students
 
 
 # Fungsi untuk menampilkan semua tugas
@@ -32,16 +33,26 @@ def get_all():
 def get_detail(id):
     assignments = csv.read('database/assignments.csv')
     try:
-        return [assignment for assignment in assignments if assignment["id"] == str(id)]
+        assignments_filtered = [assignment for assignment in assignments if assignment["id"] == str(id)]
+        return assignments_filtered[0]
     except IndexError:
         return None
 
 
 # Fungsi untuk mengubah rincian tugas
 def update(id, new_data):
-    print("Perbarui Tugas")
+    csv.edit_row(
+        "database/assignments.csv",
+        id,
+        [id, new_data['title'], new_data['description'], new_data['due_date']]
+    )
+    return True
 
 
 # Fungsi untuk menghapus tugas
 def delete(id):
-    print("Tugas dihapus")
+    csv.delete_row(
+        "database/assignments.csv",
+        id
+    )
+    return True
