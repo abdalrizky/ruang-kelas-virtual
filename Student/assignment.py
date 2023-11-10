@@ -3,9 +3,28 @@ from common_modules import csv
 
 # Fungsi untuk mendapatkan data lengkap tugas
 def get_assignments():
-    print()
+    assignments = csv.read("database/assignments.csv")
+    return assignments
 
+
+def get_detail(id):
+    assignments = csv.read('database/assignments.csv')
+    try:
+        assignments_filtered = [assignment for assignment in assignments if assignment["id"] == str(id)]
+        return assignments_filtered[0]
+    except IndexError:
+        return None
 
 # Fungsi untuk mengerjakan tugas
-def do(id):
-    print()
+def do(id, student_id):
+    csv.write("database/assignment_status.csv", [
+        student_id, id, "finish"
+    ])
+
+def get_status(id, student_id):
+    # assignment_status = csv.read("database/assignment_status.csv")
+    # assignment_filtered_by_student_id = [assignment for assignment in assignment_status if assignment["assignment_id"] == str(id) and assignment["student_id"] == str(student_id)]
+    # return assignment_filtered_by_student_id
+
+    assignments = get_assignments()
+    print(assignments)
