@@ -9,6 +9,7 @@ def show(path):
         target_table = from_csv(csv_file)
         print(target_table)
 
+
 # Fungsi untuk membaca file .csv menjadi dictionary
 def read(path):
     data = []
@@ -18,11 +19,13 @@ def read(path):
             data.append(row)
     return data
 
+
 # Fungsi untuk mengwrite ke .csv
 def write(path, data):
     with open(path, "a", newline="") as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(data)
+
 
 # Fungsi untuk mengedit data dalam .csv
 def edit_row(path, index, new_data):
@@ -35,6 +38,7 @@ def edit_row(path, index, new_data):
         csv_writer = csv.writer(file)
         csv_writer.writerows(last_data)
 
+
 # Fungsi untuk menghapus data dalam .csv
 def delete_row(path, index):
     with open(path, 'r') as file:
@@ -45,6 +49,7 @@ def delete_row(path, index):
     with open(path, 'w', newline='') as file:
         csv_writer = csv.writer(file)
         csv_writer.writerows(last_data)
+
 
 # Fungsi untuk mengambil data terakhir dalam .csv
 def get_last_item(path):

@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 from prettytable import PrettyTable
 
@@ -61,13 +62,21 @@ def show_assignment_detail(id):
                         print("Judul gagal diubah!")
 
                 case "2":
+
                     os.system('cls')
-                    _due_date = input("Masukkan batas waktu baru (kosongkan apabila ingin membatalkan) >> ")
+                    while True:
+                        _due_date = input("Masukkan batas waktu baru dd-mm-yyyy hh.mm (kosongkan apabila ingin "
+                                          "membatalkan) >> ")
+                        try:
+                            _due_date = datetime.strptime(_due_date, "%d-%m-%Y %H.%M")
+                            break
+                        except ValueError:
+                            print("Silakan masukkan batas waktu sesuai format")
 
                     title = assignment_detail["title"]
                     description = assignment_detail["description"]
 
-                    due_date = _due_date if len(_due_date) != 0 else assignment_detail["due_date"]
+                    due_date = _due_date if len(str(_due_date)) != 0 else assignment_detail["due_date"]
 
                     assignment_update = assignment.update(
                         assignment_id,
@@ -110,9 +119,10 @@ def show_assignment_manage_menu():
         if assignments['count'] != 0:
             print(f"Ada {assignments['count']} tugas:")
 
-            assignment_table = PrettyTable(["ID", "JUDUL TUGAS"])
+            assignment_table = PrettyTable(["ID", "JUDUL TUGAS", "BATAS WAKTU"])
             for index, item in enumerate(assignments["assignments"]):
-                assignment_table.add_row([item['id'], item['title']])
+                assignment_table.add_row(
+                    [item['id'], item['title'], item['due_date'] if len(item['due_date']) != 0 else '-'])
             print(assignment_table)
 
             print()
@@ -144,7 +154,14 @@ def show_assignment_manage_menu():
                         has_due_date = input("Ingin menambah batas waktu (y/n): ").upper()
                         match has_due_date:
                             case "Y":
-                                assignment_due_date = input("Batas waktu tugas (dd/mm/yyyy): ")
+                                while True:
+                                    assignment_due_date_input = input("Batas waktu tugas (dd-mm-yyyy hh.mm): ")
+                                    try:
+                                        assignment_due_date = datetime.strptime(assignment_due_date_input,
+                                                                                "%d-%m-%Y %H.%M")
+                                        break
+                                    except ValueError:
+                                        print("Silakan masukkan batas waktu sesuai format")
                                 break
                             case "N":
                                 assignment_due_date = None
@@ -240,7 +257,8 @@ def show_student_detail(id):
 
                     show_student_detail(student_id)
                 case "3":
-                    delete_decision = input("Yakin ingin menghapus tugas ini? Seluruh riwayat pengerjaan tugas untuk mahasiswa ini akan terhapus (y/n) >> ").upper()
+                    delete_decision = input(
+                        "Yakin ingin menghapus tugas ini? Seluruh riwayat pengerjaan tugas untuk mahasiswa ini akan terhapus (y/n) >> ").upper()
                     match delete_decision:
                         case "Y":
                             student_delete = student.delete(student_id)

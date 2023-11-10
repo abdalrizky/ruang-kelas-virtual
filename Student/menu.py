@@ -19,13 +19,19 @@ def do_assignment(id, student_id):
     print(
         f"Kamu bisa mengerjakan tugas ini sampai dengan {assignment_detail['due_date'] if len(assignment_detail['due_date']) != 0 else '-'}")
 
-    student_work = input(f"Silakan ketik SAYA SUDAH MENGERJAKAN TUGAS INI untuk menyelesaikan tugas (kosongkan untuk membatalkan)\n>> ")
+    student_work = input(
+        f"Silakan ketik SAYA SUDAH MENGERJAKAN TUGAS INI untuk menyelesaikan tugas (kosongkan untuk membatalkan)\n>> ")
 
     match student_work:
         case "SAYA SUDAH MENGERJAKAN TUGAS INI":
             assignment.do(id, student_id)
+            os.system('cls')
+            print("Tugas telah diselesaikan!")
+            print()
         case _:
+            os.system('cls')
             print("TUGAS DITOLAK. Silakan kerjakan dengan cara yang sesuai.")
+            print()
 
     show_main_menu()
 
@@ -43,9 +49,10 @@ def show_main_menu():
 
         assignments = assignment.get_assignments(global_variable.session["nim"])
 
-        table = PrettyTable(["ID", "NAMA TUGAS", "STATUS"])
+        table = PrettyTable(["ID", "NAMA TUGAS", "BATAS WAKTU", "STATUS"])
         for index, item in enumerate(assignments):
-            table.add_row([index, item['title'], 'SUDAH DIKERJAKAN' if item['status'] == 'finish' else 'BELUM DIKERJAKAN'])
+            table.add_row([index, item['title'], item['due_date'] if len(item['due_date']) != 0 else '-',
+                           'SUDAH DIKERJAKAN' if item['status'] == 'finish' else 'BELUM DIKERJAKAN'])
         print(table)
 
         print()

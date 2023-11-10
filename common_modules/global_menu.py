@@ -21,7 +21,6 @@ def show_welcome_message():
 
 
 def show_roles_menu():
-
     while True:
 
         print("Login sebagai?")
