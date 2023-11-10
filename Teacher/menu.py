@@ -28,10 +28,10 @@ def show_assignment_detail(id):
         print()
 
         print("Petunjuk:")
-        print("1. E untuk mengubah nama tugas")
-        print("2. ED untuk mengubah batas waktu")
-        print("3. - untuk menghapus tugas")
-        print("4. B untuk kembali ke menu sebelumnya")
+        print("E untuk mengubah nama tugas")
+        print("ED untuk mengubah batas waktu")
+        print("- untuk menghapus tugas")
+        print("B untuk kembali ke menu sebelumnya")
 
         selected_menu = input("Silakan pilih menu >> ").upper()
         match selected_menu:
@@ -109,15 +109,16 @@ def show_assignment_manage_menu():
 
             print()
             print("Petunjuk:")
-            print("1. Masukkan nomor tugas untuk melihat rincian tugas")
-            print("2. + untuk menambahkan tugas")
-            print("3. B untuk kembali ke menu sebelumnya")
+            print("Masukkan nomor tugas untuk melihat rincian tugas")
+            print("+ untuk menambahkan tugas")
+            print("- untuk menghapus Tugas")
+            print("B untuk kembali ke menu sebelumnya")
         else:
             print("Belum ada tugas yang dibuat")
             print()
             print("Petunjuk:")
-            print("1. + untuk menambahkan tugas")
-            print("2. B untuk kembali ke menu sebelumnya")
+            print("+ untuk menambahkan tugas")
+            print("B untuk kembali ke menu sebelumnya")
 
         selected_menu = input("Silakan pilih menu >> ").upper()
         if selected_menu.lstrip("-").isdigit():
