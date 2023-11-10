@@ -1,9 +1,12 @@
+import os
+
 import common_modules.global_menu as main_menu
 from Teacher import assignment
 from common_modules import csv, global_variable
 
 
 def show_assignment_detail(id):
+    os.system('cls')
     assignment_id = int(id)
     assignment_detail = assignment.get_detail(assignment_id)
 
@@ -12,12 +15,17 @@ def show_assignment_detail(id):
         assignment_status = assignment.get_status(assignment_id)
 
         print(f"{assignment_detail['title']}")
+        print()
         print(
             f"Batas waktu: {(assignment_detail['due_date'] if len(assignment_detail['due_date']) != 0 else 'Tidak ada')} ")
+
+        print()
 
         print(f"Siswa yang sudah mengerjakan tugas ini: {'' if len(assignment_status) != 0 else '-'}")
         for index, student in enumerate(assignment_status):
             print(f"{index + 1}. {student['student_id']}")
+
+        print()
 
         print("Petunjuk:")
         print("1. E untuk mengubah nama tugas")
@@ -28,6 +36,7 @@ def show_assignment_detail(id):
         selected_menu = input("Silakan pilih menu >> ").upper()
         match selected_menu:
             case "E":
+                os.system('cls')
                 _title = input("Masukkan judul tugas baru (kosongkan apabila ingin membatalkan) >> ")
 
                 due_date = assignment_detail["due_date"]
@@ -41,11 +50,14 @@ def show_assignment_detail(id):
                 )
 
                 if assignment_update:
+                    os.system('cls')
                     print("Judul berhasil diubah!")
                 else:
+                    os.system('cls')
                     print("Judul gagal diubah!")
 
             case "ED":
+                os.system('cls')
                 _due_date = input("Masukkan batas waktu baru (kosongkan apabila ingin membatalkan) >> ")
 
                 title = assignment_detail["title"]
@@ -59,6 +71,7 @@ def show_assignment_detail(id):
                 )
 
                 if assignment_update:
+                    os.system('cls')
                     print("Batas waktu tugas berhasil diubah!")
                 else:
                     print("Batas waktu tugas gagal diubah!")
@@ -69,10 +82,13 @@ def show_assignment_detail(id):
                     case "Y":
                         assignment_delete = assignment.delete(assignment_id)
                         if assignment_delete:
+                            os.system('cls')
                             print("Tugas berhasil dihapus!")
                         else:
-                            print("Tugas berhasil dihapus!")
+                            os.system('cls')
+                            print("Tugas gagal dihapus!")
                     case "N":
+                        os.system('cls')
                         print("Operasi dibatalkan")
                 show_assignment_detail(id)
             case "B":
@@ -82,6 +98,7 @@ def show_assignment_detail(id):
 
 
 def show_assignment_manage_menu():
+    os.system('cls')
     while True:
         assignments = assignment.get_all()
         if assignments['count'] != 0:
@@ -90,6 +107,7 @@ def show_assignment_manage_menu():
             for index, item in enumerate(assignments["assignments"]):
                 print(f"{item['id']} {item['title']}")
 
+            print()
             print("Petunjuk:")
             print("1. Masukkan nomor tugas untuk melihat rincian tugas")
             print("2. + untuk menambahkan tugas")
@@ -110,6 +128,7 @@ def show_assignment_manage_menu():
         else:
             match selected_menu:
                 case "+":
+                    os.system('cls')
                     assignment_title = input("Judul tugas: ")
                     assignment_description = input("Deskripsi tugas:")
 
@@ -121,6 +140,7 @@ def show_assignment_manage_menu():
                                 break
                             case "N":
                                 assignment_due_date = None
+                                os.system('cls')
                                 break
                             case _:
                                 print("Pilihan tidak ada")
@@ -132,8 +152,10 @@ def show_assignment_manage_menu():
                     )
 
                     if create_assignment:
+                        os.system('cls')
                         print("Tugas berhasil ditambahkan!")
                     else:
+                        os.system('cls')
                         print("Tugas gagal ditambahkan!")
 
                 case "B":
@@ -141,6 +163,7 @@ def show_assignment_manage_menu():
 
 
 def show_main_menu():
+    os.system('cls')
     while True:
 
         print("[1] Tampilkan daftar siswa")
@@ -150,9 +173,12 @@ def show_main_menu():
         selected_menu = input("Silakan pilih menu >> ")
         match selected_menu:
             case "1":
+                os.system('cls')
                 csv.show('database/students.csv')
+                print()
             case "2":
                 show_assignment_manage_menu()
             case "3":
                 global_variable.session.clear()
+                os.system('cls')
                 main_menu.show_roles_menu()

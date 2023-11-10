@@ -1,9 +1,12 @@
+import os
+
 from Student.menu import show_main_menu as show_student_menu
 from Teacher.menu import show_main_menu as show_teacher_menu
 from common_modules import auth
 
 
 def show_welcome_message():
+    os.system('cls')
     print("""
    _____      _                       _         _       _                    _ 
   / ____|    | |                     | |       | |     | |                  | |
@@ -18,6 +21,7 @@ def show_welcome_message():
 
 
 def show_roles_menu():
+
     while True:
 
         print("Login sebagai?")
@@ -28,21 +32,26 @@ def show_roles_menu():
         selected_menu = input("Silakan pilih menu >> ")
         match selected_menu:
             case "1":
+
                 show_login_form("teacher")
             case "2":
+
                 show_login_form("student")
             case "3":
                 exit()
 
 
 def show_login_form(role):
+    os.system('cls')
     match role:
         case "teacher":
             while True:
 
                 print("Untuk masuk ke dasbor, kamu perlu login terlebih dahulu.")
+                print()
                 print("Petunjuk:")
                 print("Username dan password gunakan \"admin\"")
+                print()
 
                 username = input("Username >> ")
                 password = input("Kata sandi >> ")
