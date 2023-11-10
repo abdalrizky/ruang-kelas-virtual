@@ -9,7 +9,7 @@ def show(path, headers='firstrow'):
         csv_obj = csv.reader(csv_file)
         print(table.tabulate(csv_obj, headers))
 
-
+# Fungsi untuk membaca file .csv menjadi dictionary
 def read(path):
     data = []
     with open(path) as csv_file:
@@ -18,13 +18,13 @@ def read(path):
             data.append(row)
     return data
 
-
+# Fungsi untuk mengwrite ke .csv
 def write(path, data):
     with open(path, "a", newline="") as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(data)
 
-
+# Fungsi untuk mengedit data dalam .csv
 def edit_row(path, index, new_data):
     with open(path, 'r') as file:
         csv_reader = csv.reader(file)
@@ -35,7 +35,7 @@ def edit_row(path, index, new_data):
         csv_writer = csv.writer(file)
         csv_writer.writerows(last_data)
 
-
+# Fungsi untuk menghapus data dalam .csv
 def delete_row(path, index):
     with open(path, 'r') as file:
         csv_reader = csv.reader(file)
@@ -46,7 +46,7 @@ def delete_row(path, index):
         csv_writer = csv.writer(file)
         csv_writer.writerows(last_data)
 
-
+# Fungsi untuk mengambil data terakhir dalam .csv
 def get_last_item(path):
     rows = []
 
