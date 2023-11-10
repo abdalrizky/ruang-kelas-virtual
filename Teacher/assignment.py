@@ -33,7 +33,11 @@ def get_all():
 def get_detail(id):
     assignments = csv.read('database/assignments.csv')
     try:
-        assignments_filtered = [assignment for assignment in assignments if assignment["id"] == str(id)]
+        assignments_filtered = []
+        for assignment in assignments:
+            if assignment['id'] == str(id):
+                assignments_filtered.append(assignment)
+
         return assignments_filtered[0]
     except IndexError:
         return None

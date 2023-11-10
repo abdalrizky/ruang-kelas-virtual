@@ -31,13 +31,14 @@ def show_main_menu():
     os.system('cls')
     while True:
 
-        assignments = assignment.get_individual_assignments(global_variable.session["nim"])
-        print(assignments)
         print("Beranda Utama Siswa")
         print()
         print(global_variable.session["name"])
         print(global_variable.session["nim"])
         print()
+
+        assignments = assignment.get_assignments(global_variable.session["nim"])
+        print(assignments)
 
         # print(status)
         # student_assignment_status = []

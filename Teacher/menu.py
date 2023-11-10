@@ -1,8 +1,8 @@
 import os
 
 import common_modules.global_menu as main_menu
-from Teacher import assignment
-from common_modules import csv, global_variable
+from Teacher import assignment, student
+from common_modules import global_variable
 
 
 def show_assignment_detail(id):
@@ -162,6 +162,55 @@ def show_assignment_manage_menu():
                     show_main_menu()
 
 
+def show_student_detail(id):
+    print()
+
+
+def show_student_manage_menu():
+    os.system('cls')
+    while True:
+        print("DAFTAR SISWA")
+        print(student.get_students())
+
+        print()
+        print("Petunjuk:")
+        print("1. Masukkan nomor siswa untuk melihat data siswa")
+        print("2. + untuk menambahkan siswa")
+        print("3. B untuk kembali ke menu sebelumnya")
+
+        selected_menu = input("Silakan pilih menu >> ").upper()
+        if selected_menu.lstrip("-").isdigit():
+            if int(selected_menu) >= 0:
+                show_student_detail(selected_menu)
+            else:
+                print("Silakan masukkan angka yang valid")
+        else:
+            match selected_menu:
+                case "+":
+                    os.system('cls')
+                    student_name = input("Nama siswa: ")
+                    student_id = input("NIM: ")
+
+                    add_student = student.add(
+                        student_name,
+                        student_id
+                    )
+
+                    if add_student:
+                        os.system('cls')
+                        print("Siswa berhasil ditambahkan!")
+                    else:
+                        os.system('cls')
+                        print("Siswa gagal ditambahkan!")
+
+                case "-":
+                    os.system('cls')
+                    student_id = input('Masukkan NIM siswa yang ingin di hapus')
+                    student.delete(student_id)
+                case "B":
+                    show_main_menu()
+
+
 def show_main_menu():
     os.system('cls')
     while True:
@@ -173,8 +222,7 @@ def show_main_menu():
         selected_menu = input("Silakan pilih menu >> ")
         match selected_menu:
             case "1":
-                os.system('cls')
-                csv.show('database/students.csv')
+                show_student_manage_menu()
                 print()
             case "2":
                 show_assignment_manage_menu()
