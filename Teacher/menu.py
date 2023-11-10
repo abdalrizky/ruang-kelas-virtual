@@ -1,5 +1,7 @@
 import os
 
+from prettytable import PrettyTable
+
 import common_modules.global_menu as main_menu
 from Teacher import assignment, student
 from common_modules import global_variable
@@ -106,8 +108,10 @@ def show_assignment_manage_menu():
         if assignments['count'] != 0:
             print(f"Ada {assignments['count']} tugas:")
 
+            assignment_table = PrettyTable(["ID", "JUDUL TUGAS"])
             for index, item in enumerate(assignments["assignments"]):
-                print(f"{item['id']} {item['title']}")
+                assignment_table.add_row([item['id'], item['title']])
+            print(assignment_table)
 
             print()
             print("Petunjuk:")

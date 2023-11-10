@@ -1,13 +1,13 @@
 import csv
 
-import tabulate as table
+from prettytable import from_csv
 
 
 # Fungsi untuk menampilkan file .csv
-def show(path, headers='firstrow'):
+def show(path):
     with open(path) as csv_file:
-        csv_obj = csv.reader(csv_file)
-        print(table.tabulate(csv_obj, headers))
+        target_table = from_csv(csv_file)
+        print(target_table)
 
 
 def read(path):

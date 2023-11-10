@@ -1,5 +1,7 @@
 import os
 
+from prettytable import PrettyTable
+
 from Student import assignment
 from common_modules import global_variable, global_menu
 
@@ -38,8 +40,11 @@ def show_main_menu():
         print()
 
         assignments = assignment.get_assignments(global_variable.session["nim"])
+
+        table = PrettyTable(["ID", "NAMA TUGAS", "STATUS"])
         for index, item in enumerate(assignments):
-            print(f"{index} {item['title']} {'SUDAH DIKERJAKAN' if item['status'] == 'finish' else 'BELUM DIKERJAKAN'}")
+            table.add_row([index, item['title'], 'SUDAH DIKERJAKAN' if item['status'] == 'finish' else 'BELUM DIKERJAKAN'])
+        print(table)
 
         print()
         print("Petunjuk:")

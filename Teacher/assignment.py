@@ -10,7 +10,7 @@ def create(title, description, due_date):
         assignment_id = int(last_id) + 1
     csv.write(
         "database/assignments.csv",
-        [assignment_id, title, description, due_date]
+        [assignment_id, str(title).title(), description, due_date]
     )
     return True
 
