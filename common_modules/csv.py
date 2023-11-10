@@ -4,10 +4,10 @@ import tabulate as table
 
 
 # Fungsi untuk menampilkan file .csv
-def show(path):
+def show(path, headers='firstrow'):
     with open(path) as csv_file:
         csv_obj = csv.reader(csv_file)
-        print(table.tabulate(csv_obj, headers='firstrow'))
+        print(table.tabulate(csv_obj, headers))
 
 
 def read(path):
@@ -41,7 +41,7 @@ def delete_row(path, index):
         csv_reader = csv.reader(file)
         last_data = list(csv_reader)
 
-    del last_data[index + 1]
+    del last_data[index]
     with open(path, 'w', newline='') as file:
         csv_writer = csv.writer(file)
         csv_writer.writerows(last_data)

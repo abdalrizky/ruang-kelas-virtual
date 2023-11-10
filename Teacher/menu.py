@@ -7,94 +7,96 @@ from common_modules import global_variable
 
 def show_assignment_detail(id):
     os.system('cls')
-    assignment_id = int(id)
-    assignment_detail = assignment.get_detail(assignment_id)
+    while True:
+        assignment_id = int(id)
+        assignment_detail = assignment.get_detail(assignment_id)
 
-    if assignment_detail is not None:
+        if assignment_detail is not None:
 
-        assignment_status = assignment.get_status(assignment_id)
+            assignment_status = assignment.get_status(assignment_id)
 
-        print(f"{assignment_detail['title']}")
-        print()
-        print(
-            f"Batas waktu: {(assignment_detail['due_date'] if len(assignment_detail['due_date']) != 0 else 'Tidak ada')} ")
+            print(f"{assignment_detail['title']}")
+            print()
+            print(
+                f"Batas waktu: {(assignment_detail['due_date'] if len(assignment_detail['due_date']) != 0 else 'Tidak ada')} ")
 
-        print()
+            print()
 
-        print(f"Siswa yang sudah mengerjakan tugas ini: {'' if len(assignment_status) != 0 else '-'}")
-        for index, student in enumerate(assignment_status):
-            print(f"{index + 1}. {student['student_id']}")
+            print(f"Siswa yang sudah mengerjakan tugas ini: {'' if len(assignment_status) != 0 else '-'}")
+            for index, student in enumerate(assignment_status):
+                print(f"{index + 1}. {student['student_id']}")
 
-        print()
+            print()
 
-        print("Petunjuk:")
-        print("1. E untuk mengubah nama tugas")
-        print("2. ED untuk mengubah batas waktu")
-        print("3. - untuk menghapus tugas")
-        print("4. B untuk kembali ke menu sebelumnya")
+            print("Petunjuk:")
+            print("[1] Ubah nama tugas")
+            print("[2] Ubah batas waktu")
+            print("[3] Hapus tugas")
+            print("[4] Kembali ke menu sebelumnya")
 
-        selected_menu = input("Silakan pilih menu >> ").upper()
-        match selected_menu:
-            case "E":
-                os.system('cls')
-                _title = input("Masukkan judul tugas baru (kosongkan apabila ingin membatalkan) >> ")
-
-                due_date = assignment_detail["due_date"]
-                description = assignment_detail["description"]
-
-                title = _title if len(_title) != 0 else assignment_detail["title"]
-
-                assignment_update = assignment.update(
-                    assignment_id,
-                    {"title": title, "description": description, "due_date": due_date}
-                )
-
-                if assignment_update:
+            selected_menu = input("Silakan pilih menu >> ").upper()
+            match selected_menu:
+                case "1":
                     os.system('cls')
-                    print("Judul berhasil diubah!")
-                else:
-                    os.system('cls')
-                    print("Judul gagal diubah!")
+                    _title = input("Masukkan judul tugas baru (kosongkan apabila ingin membatalkan) >> ")
 
-            case "ED":
-                os.system('cls')
-                _due_date = input("Masukkan batas waktu baru (kosongkan apabila ingin membatalkan) >> ")
+                    due_date = assignment_detail["due_date"]
+                    description = assignment_detail["description"]
 
-                title = assignment_detail["title"]
-                description = assignment_detail["description"]
+                    title = _title if len(_title) != 0 else assignment_detail["title"]
 
-                due_date = _due_date if len(_due_date) != 0 else assignment_detail["due_date"]
+                    assignment_update = assignment.update(
+                        assignment_id,
+                        {"title": title, "description": description, "due_date": due_date}
+                    )
 
-                assignment_update = assignment.update(
-                    assignment_id,
-                    {"title": title, "description": description, "due_date": due_date}
-                )
-
-                if assignment_update:
-                    os.system('cls')
-                    print("Batas waktu tugas berhasil diubah!")
-                else:
-                    print("Batas waktu tugas gagal diubah!")
-            case "-":
-                delete_decision = input("Yakin ingin menghapus tugas ini? Status siswa yang mengerjakan tugas juga "
-                                        "akan terhapus (y/n) >> ").upper()
-                match delete_decision:
-                    case "Y":
-                        assignment_delete = assignment.delete(assignment_id)
-                        if assignment_delete:
-                            os.system('cls')
-                            print("Tugas berhasil dihapus!")
-                        else:
-                            os.system('cls')
-                            print("Tugas gagal dihapus!")
-                    case "N":
+                    if assignment_update:
                         os.system('cls')
-                        print("Operasi dibatalkan")
-                show_assignment_detail(id)
-            case "B":
-                show_assignment_manage_menu()
-    else:
-        print("Tugas tidak ditemukan!")
+                        print("Judul berhasil diubah!")
+                    else:
+                        os.system('cls')
+                        print("Judul gagal diubah!")
+
+                case "2":
+                    os.system('cls')
+                    _due_date = input("Masukkan batas waktu baru (kosongkan apabila ingin membatalkan) >> ")
+
+                    title = assignment_detail["title"]
+                    description = assignment_detail["description"]
+
+                    due_date = _due_date if len(_due_date) != 0 else assignment_detail["due_date"]
+
+                    assignment_update = assignment.update(
+                        assignment_id,
+                        {"title": title, "description": description, "due_date": due_date}
+                    )
+
+                    if assignment_update:
+                        os.system('cls')
+                        print("Batas waktu tugas berhasil diubah!")
+                    else:
+                        print("Batas waktu tugas gagal diubah!")
+                case "3":
+                    delete_decision = input("Yakin ingin menghapus tugas ini? Status siswa yang mengerjakan tugas juga "
+                                            "akan terhapus (y/n) >> ").upper()
+                    match delete_decision:
+                        case "Y":
+                            assignment_delete = assignment.delete(assignment_id)
+                            if assignment_delete:
+                                os.system('cls')
+                                print("Tugas berhasil dihapus!")
+                            else:
+                                os.system('cls')
+                                print("Tugas gagal dihapus!")
+                        case "N":
+                            os.system('cls')
+                            print("Operasi dibatalkan")
+                    show_assignment_detail(id)
+                case "4":
+                    show_assignment_manage_menu()
+
+        else:
+            print("Tugas tidak ditemukan!")
 
 
 def show_assignment_manage_menu():
@@ -163,18 +165,105 @@ def show_assignment_manage_menu():
 
 
 def show_student_detail(id):
-    print()
+    os.system('cls')
+    while True:
+        student_id = int(id)
+        student_detail = student.get_detail(student_id)
+
+        if student_detail is not None:
+
+            # assignment_status = assignment.get_status(student_id)
+
+            print(student_detail["name"])
+            print(student_detail["nim"])
+            print()
+
+            print("[1] Ubah nama mahasiswa")
+            print("[2] Ubah NIM")
+            print("[3] Hapus mahasiswa")
+            print("[4] Kembali ke menu sebelumnya")
+
+            selected_menu = input("Silakan pilih menu >> ").upper()
+            match selected_menu:
+                case "1":
+                    os.system('cls')
+                    _name = input("Masukkan nama baru (kosongkan jika ingin membatalkan) >> ")
+
+                    nim = student_detail["nim"]
+
+                    name = _name if len(_name) != 0 else student_detail["name"]
+
+                    student_update = student.update(
+                        student_id,
+                        {"nim": nim, "name": name}
+                    )
+
+                    if student_update:
+                        os.system('cls')
+                        print("Nama berhasil diubah!")
+                        print()
+                    else:
+                        os.system('cls')
+                        print("Nama gagal diubah!")
+                        print()
+
+                    show_student_detail(student_id)
+
+                case "2":
+                    os.system('cls')
+                    _nim = input("Masukkan NIM baru (kosongkan jika ingin membatalkan) >> ")
+
+                    name = student_detail["name"]
+
+                    nim = _nim if len(_nim) != 0 else student_detail["nim"]
+
+                    student_update = student.update(
+                        student_id,
+                        {"nim": nim, "name": name}
+                    )
+
+                    if student_update:
+                        os.system('cls')
+                        print("NIM berhasil diubah!")
+                        print()
+                    else:
+                        os.system('cls')
+                        print("NIM gagal diubah!")
+                        print()
+
+                    show_student_detail(student_id)
+                case "3":
+                    delete_decision = input("Yakin ingin menghapus tugas ini? Seluruh riwayat pengerjaan tugas untuk mahasiswa ini akan terhapus (y/n) >> ").upper()
+                    match delete_decision:
+                        case "Y":
+                            student_delete = student.delete(student_id)
+                            if student_delete:
+                                os.system('cls')
+                                print("Mahasiswa berhasil dihapus!")
+                                print()
+                            else:
+                                os.system('cls')
+                                print("Mahasiswa gagal dihapus!")
+                                print()
+                        case "N":
+                            os.system('cls')
+                            print("Operasi dibatalkan")
+                    show_student_manage_menu()
+                case "4":
+                    show_student_manage_menu()
+        else:
+            print("Siswa tidak ditemukan!")
 
 
 def show_student_manage_menu():
     os.system('cls')
     while True:
         print("DAFTAR SISWA")
-        print(student.get_students())
+        student.show_students_as_table()
 
         print()
         print("Petunjuk:")
-        print("1. Masukkan nomor siswa untuk melihat data siswa")
+        print("1. Masukkan id siswa untuk melihat detail siswa")
         print("2. + untuk menambahkan siswa")
         print("3. B untuk kembali ke menu sebelumnya")
 

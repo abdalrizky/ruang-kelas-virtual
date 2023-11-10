@@ -7,8 +7,7 @@ def search_nim(nim):
     for i in reader:
         if nim in i:
             return {
-                "nim": i[0],
-                "name": i[1],
-                "class": i[2]
+                "nim": i[1],
+                "name": i[2]
             }
     return None

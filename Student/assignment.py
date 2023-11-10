@@ -4,11 +4,28 @@ from common_modules import csv
 # Fungsi untuk mendapatkan data lengkap tugas
 def get_assignments(student_id):
     assignments = csv.read("database/assignments.csv")
-    assignments_filtered_by_student_status = []
-    for assignment in assignments:
-        assignments_filtered_by_student_status.append(assignment)
-    return assignments_filtered_by_student_status
+    assignment_status = csv.read("database/assignment_status.csv")
 
+    assignments_filtered_by_student_status = []
+
+    for assignment in assignments:
+
+        stat = None
+
+        for status in assignment_status:
+            if status["assignment_id"] == assignment["id"] and status["student_id"] == str(student_id):
+                stat = status["status"]
+                break
+        assignments_filtered_by_student_status.append(
+            {
+                'id': assignment["id"],
+                'title': assignment['title'],
+                'description': assignment['description'],
+                'due_date': assignment['due_date'],
+                'status': stat
+            }
+        )
+    return assignments_filtered_by_student_status
 
 
 def get_detail(id):
@@ -19,11 +36,13 @@ def get_detail(id):
     except IndexError:
         return None
 
+
 # Fungsi untuk mengerjakan tugas
 def do(id, student_id):
     csv.write("database/assignment_status.csv", [
         student_id, id, "finish"
     ])
+
 
 def get_status(id, student_id):
     # assignment_status = csv.read("database/assignment_status.csv")
@@ -32,6 +51,7 @@ def get_status(id, student_id):
 
     assignments = get_assignments()
     print(assignments)
+
 
 def compare_status():
     assignments = csv.read("database/assignments.csv")

@@ -16,7 +16,7 @@ def do_assignment(id, student_id):
     print(
         f"Kamu bisa mengerjakan tugas ini sampai dengan {assignment_detail['due_date'] if len(assignment_detail['due_date']) != 0 else '-'}")
 
-    student_work = input(f"Silakan ketik SAYA SUDAH MENGERJAKAN TUGAS INI untuk menyelesaikan tugas\n>> ")
+    student_work = input(f"Silakan ketik SAYA SUDAH MENGERJAKAN TUGAS INI untuk menyelesaikan tugas (kosongkan untuk membatalkan)\n>> ")
 
     match student_work:
         case "SAYA SUDAH MENGERJAKAN TUGAS INI":
@@ -38,18 +38,8 @@ def show_main_menu():
         print()
 
         assignments = assignment.get_assignments(global_variable.session["nim"])
-        print(assignments)
-
-        # print(status)
-        # student_assignment_status = []
-        # for index, item in enumerate(assignments):
-        #     student_assignment_status.append(assignment.get_status(item["id"], global_variable.session["nim"]))
-        #     print(f"{index} {item['title']}")
-        #
-        # for item in student_assignment_status:
-        #     print(item[0]['status'])
-
-        # status = assignment.get_status(assignments[])
+        for index, item in enumerate(assignments):
+            print(f"{index} {item['title']} {'SUDAH DIKERJAKAN' if item['status'] == 'finish' else 'BELUM DIKERJAKAN'}")
 
         print()
         print("Petunjuk:")
