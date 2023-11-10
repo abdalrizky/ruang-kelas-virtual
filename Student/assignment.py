@@ -28,6 +28,7 @@ def get_assignments(student_id):
     return assignments_filtered_by_student_status
 
 
+# Fungsi untuk mengambil detail penugasan
 def get_detail(id):
     assignments = csv.read('database/assignments.csv')
     try:
@@ -44,6 +45,7 @@ def do(id, student_id):
     ])
 
 
+# Fungsi untuk mengambil status penugasan
 def get_status(id, student_id):
     # assignment_status = csv.read("database/assignment_status.csv")
     # assignment_filtered_by_student_id = [assignment for assignment in assignment_status if assignment["assignment_id"] == str(id) and assignment["student_id"] == str(student_id)]
@@ -53,6 +55,7 @@ def get_status(id, student_id):
     print(assignments)
 
 
+# Fungsi untuk meng cross check status penugasan
 def compare_status():
     assignments = csv.read("database/assignments.csv")
     assignments_status = csv.read("")

@@ -7,6 +7,7 @@ from Teacher import assignment, student
 from common_modules import global_variable
 
 
+# Fungsi untuk menunjukkan menu management penugasan bagi Teacher
 def show_assignment_detail(id):
     os.system('cls')
     while True:
@@ -101,6 +102,7 @@ def show_assignment_detail(id):
             print("Tugas tidak ditemukan!")
 
 
+# Fungsi untuk menunjukkan menu management tugas Teacher
 def show_assignment_manage_menu():
     os.system('cls')
     while True:
@@ -168,6 +170,7 @@ def show_assignment_manage_menu():
                     show_main_menu()
 
 
+# Fungsi untuk menunjukkan menu management Student data bagi Teacher
 def show_student_detail(id):
     os.system('cls')
     while True:
@@ -259,6 +262,7 @@ def show_student_detail(id):
             print("Siswa tidak ditemukan!")
 
 
+# Fungsi untuk menunjukkan menu show Student data bagi Teacher
 def show_student_manage_menu():
     os.system('cls')
     while True:
@@ -304,6 +308,7 @@ def show_student_manage_menu():
                     show_main_menu()
 
 
+# Fungsi untuk menunjukkan menu utama Teacher
 def show_main_menu():
     os.system('cls')
     while True:

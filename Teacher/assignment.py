@@ -1,7 +1,7 @@
-# Fungsi untuk membuat tugas baru
 from common_modules import csv
 
 
+# Fungsi untuk membuat tugas baru
 def create(title, description, due_date):
     last_id = csv.get_last_item("database/assignments.csv")[0]
     if last_id == "id":
@@ -15,6 +15,7 @@ def create(title, description, due_date):
     return True
 
 
+# Fungsi untuk mengambil status penugasan tiap Student
 def get_status(id):
     assignment_status = csv.read('database/assignment_status.csv')
     finished_students = [student for student in assignment_status if student["assignment_id"] == str(id)]
@@ -30,6 +31,7 @@ def get_all():
     }
 
 
+# Fungsi untuk mengambil detail penugasan
 def get_detail(id):
     assignments = csv.read('database/assignments.csv')
     try:

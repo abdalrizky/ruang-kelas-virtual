@@ -41,9 +41,12 @@ def show_roles_menu():
                 exit()
 
 
+# Fungsi untuk mengcheck login role
 def show_login_form(role):
     os.system('cls')
     match role:
+
+        # Petunjuk login untuk Teacher
         case "teacher":
             while True:
 
@@ -62,6 +65,7 @@ def show_login_form(role):
                 else:
                     print("Username atau password salah.")
 
+        # Petunjuk login untuk Student
         case "student":
             while True:
 

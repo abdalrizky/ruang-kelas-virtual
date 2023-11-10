@@ -6,6 +6,7 @@ from Student import assignment
 from common_modules import global_variable, global_menu
 
 
+# Fungsi untuk mengerjakan penugasan
 def do_assignment(id, student_id):
     os.system('cls')
     assignment_detail = assignment.get_detail(id)
@@ -29,6 +30,7 @@ def do_assignment(id, student_id):
     show_main_menu()
 
 
+# Fungsi untuk menunjukkan menu Student
 def show_main_menu():
     os.system('cls')
     while True:
