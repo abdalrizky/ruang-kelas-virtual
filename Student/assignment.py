@@ -10,12 +10,17 @@ def get_assignments(student_id):
 
     for assignment in assignments:
 
+
         stat = None
 
         for status in assignment_status:
+            # Jika assignment_id dan student_id cocok
             if status["assignment_id"] == assignment["id"] and status["student_id"] == str(student_id):
+                # Tetapkan variabel status sama dengan status yang ada di assignment_status
                 stat = status["status"]
                 break
+
+        # Gabungkan tugas yang telah difilter, ditambah satu field tambahan (status)
         assignments_filtered_by_student_status.append(
             {
                 'id': assignment["id"],
@@ -32,6 +37,7 @@ def get_assignments(student_id):
 def get_detail(id):
     assignments = csv.read('database/assignments.csv')
     try:
+        # Filter assignment berdasarkan id
         assignments_filtered = [assignment for assignment in assignments if assignment["id"] == str(id)]
         return assignments_filtered[0]
     except IndexError:
@@ -43,19 +49,3 @@ def do(id, student_id):
     csv.write("database/assignment_status.csv", [
         student_id, id, "finish"
     ])
-
-
-# Fungsi untuk mengambil status penugasan
-def get_status(id, student_id):
-    # assignment_status = csv.read("database/assignment_status.csv")
-    # assignment_filtered_by_student_id = [assignment for assignment in assignment_status if assignment["assignment_id"] == str(id) and assignment["student_id"] == str(student_id)]
-    # return assignment_filtered_by_student_id
-
-    assignments = get_assignments()
-    print(assignments)
-
-
-# Fungsi untuk meng cross check status penugasan
-def compare_status():
-    assignments = csv.read("database/assignments.csv")
-    assignments_status = csv.read("")

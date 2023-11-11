@@ -3,14 +3,14 @@ import csv
 from prettytable import from_csv
 
 
-# Fungsi untuk menampilkan file .csv
+# Fungsi untuk menampilkan file .csv ke bentuk tabel
 def show(path):
     with open(path) as csv_file:
         target_table = from_csv(csv_file)
         print(target_table)
 
 
-# Fungsi untuk membaca file .csv menjadi dictionary
+# Fungsi untuk membaca file .csv sebagai dictionary
 def read(path):
     data = []
     with open(path) as csv_file:
@@ -20,12 +20,13 @@ def read(path):
     return data
 
 
-# Fungsi untuk mengwrite ke .csv
+# Fungsi untuk menulis ke .csv
 def write(path, data):
     with open(path, "a", newline="") as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(data)
 
+# Fungsi untuk menulis ulang keseluruhan isi .csv
 def overwrite(path, data):
     with open(path, 'w', newline='') as file:
         csv_writer = csv.writer(file)
@@ -56,8 +57,8 @@ def delete_row(path, index):
         csv_writer.writerows(last_data)
 
 
-# Fungsi untuk mengambil data terakhir dalam .csv
-def get_last_item(path):
+# Fungsi untuk mengambil baris terakhir dalam .csv
+def get_last_row(path):
     rows = []
 
     with open(path) as file:

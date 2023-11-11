@@ -6,9 +6,11 @@ from Student import assignment
 from common_modules import global_variable, global_menu
 
 
-# Fungsi untuk mengerjakan penugasan
-def do_assignment(id, student_id):
+# Fungsi untuk menampilkan menu pengerjaan tugas
+def show_do_assignment_menu(id, student_id):
     os.system('cls')
+
+    # Ambil data assignment berdasarkan id
     assignment_detail = assignment.get_detail(id)
 
     print(assignment_detail["title"])
@@ -36,18 +38,23 @@ def do_assignment(id, student_id):
     show_main_menu()
 
 
-# Fungsi untuk menunjukkan menu Student
+# Fungsi untuk menampilkan halaman utama siswa
 def show_main_menu():
     os.system('cls')
     while True:
 
         print("Beranda Utama Siswa")
         print()
+
+        # Ambil nama dan nim dari variabel session
         print(global_variable.session["name"])
         print(global_variable.session["nim"])
+
         print()
 
+        # Ambil semua tugas dari database berdasarkan nim
         assignments = assignment.get_assignments(global_variable.session["nim"])
+
         if len(assignments) != 0:
             table = PrettyTable(["ID", "NAMA TUGAS", "BATAS WAKTU", "STATUS"])
             for index, item in enumerate(assignments):
@@ -66,9 +73,11 @@ def show_main_menu():
             print("1. U untuk keluar dari akun")
 
         selected_menu = input("Silakan pilih menu >> ").upper()
+
+        # Periksa apakah inputan adalah angka
         if selected_menu.lstrip("-").isdigit():
             if int(selected_menu) >= 0:
-                do_assignment(selected_menu, global_variable.session["nim"])
+                show_do_assignment_menu(selected_menu, global_variable.session["nim"])
             else:
                 print("Silakan masukkan angka yang valid")
         else:

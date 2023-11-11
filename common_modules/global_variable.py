@@ -1,3 +1,4 @@
+# Kredensial login untuk 
 login_teacher = [
     {
         "username": "admin",
@@ -5,4 +6,5 @@ login_teacher = [
     }
 ]
 
+# Digunakan untuk menyimpan data login saat ini
 session = {}

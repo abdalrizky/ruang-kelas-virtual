@@ -4,7 +4,7 @@ from Student.menu import show_main_menu as show_student_menu
 from Teacher.menu import show_main_menu as show_teacher_menu
 from common_modules import auth
 
-
+# Fungsi untuk menampilkan pesan selamat datang
 def show_welcome_message():
     os.system('cls')
     print("""
@@ -19,7 +19,7 @@ def show_welcome_message():
 """)
     show_roles_menu()
 
-
+# Fungsi untuk menampilkan pilihan role login
 def show_roles_menu():
     while True:
 
@@ -31,21 +31,17 @@ def show_roles_menu():
         selected_menu = input("Silakan pilih menu >> ")
         match selected_menu:
             case "1":
-
                 show_login_form("teacher")
             case "2":
-
                 show_login_form("student")
             case "3":
                 exit()
 
 
-# Fungsi untuk mengcheck login role
+# Fungsi untuk menampilkan login form
 def show_login_form(role):
     os.system('cls')
     match role:
-
-        # Petunjuk login untuk Teacher
         case "teacher":
             while True:
 
@@ -58,7 +54,10 @@ def show_login_form(role):
                 username = input("Username >> ")
                 password = input("Kata sandi >> ")
 
+                # Proses login sebagai guru
                 login_result = auth.login_as_teacher(username, password)
+
+                # Jika login berhasil, masuk ke menu khusus guru
                 if login_result:
                     show_teacher_menu()
                 else:
@@ -75,7 +74,11 @@ def show_login_form(role):
 
                 nim = input("NIM >> ")
                 password = input("Kata sandi >> ")
+
+                # Proses login sebagai siswa
                 login_result = auth.login_as_student(nim, password)
+
+                # Jika login berhasil, masuk ke menu khusus siswa
                 if login_result:
                     show_student_menu()
                 else:
