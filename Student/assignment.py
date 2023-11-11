@@ -10,7 +10,6 @@ def get_assignments(student_id):
 
     for assignment in assignments:
 
-
         stat = None
 
         for status in assignment_status:

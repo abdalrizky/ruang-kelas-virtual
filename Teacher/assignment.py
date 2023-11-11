@@ -22,7 +22,6 @@ def create(title, description, due_date):
 
 # Fungsi untuk mengambil status penugasan tiap Student
 def get_status(id):
-
     assignment_status = csv.read('database/assignment_status.csv')
 
     # Filter status tugas berdasarkan assignment_id
