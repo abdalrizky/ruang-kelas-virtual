@@ -26,6 +26,11 @@ def write(path, data):
         writer = csv.writer(csv_file)
         writer.writerow(data)
 
+def overwrite(path, data):
+    with open(path, 'w', newline='') as file:
+        csv_writer = csv.writer(file)
+        csv_writer.writerows(data)
+
 
 # Fungsi untuk mengedit data dalam .csv
 def edit_row(path, index, new_data):
@@ -45,7 +50,7 @@ def delete_row(path, index):
         csv_reader = csv.reader(file)
         last_data = list(csv_reader)
 
-    del last_data[index]
+    del last_data[index+1]
     with open(path, 'w', newline='') as file:
         csv_writer = csv.writer(file)
         csv_writer.writerows(last_data)

@@ -48,17 +48,22 @@ def show_main_menu():
         print()
 
         assignments = assignment.get_assignments(global_variable.session["nim"])
+        if len(assignments) != 0:
+            table = PrettyTable(["ID", "NAMA TUGAS", "BATAS WAKTU", "STATUS"])
+            for index, item in enumerate(assignments):
+                table.add_row([index, item['title'], item['due_date'] if len(item['due_date']) != 0 else '-',
+                               'SUDAH DIKERJAKAN' if item['status'] == 'finish' else 'BELUM DIKERJAKAN'])
+            print(table)
 
-        table = PrettyTable(["ID", "NAMA TUGAS", "BATAS WAKTU", "STATUS"])
-        for index, item in enumerate(assignments):
-            table.add_row([index, item['title'], item['due_date'] if len(item['due_date']) != 0 else '-',
-                           'SUDAH DIKERJAKAN' if item['status'] == 'finish' else 'BELUM DIKERJAKAN'])
-        print(table)
-
-        print()
-        print("Petunjuk:")
-        print("1. Masukkan nomor tugas untuk mengerjakan")
-        print("2. U untuk keluar dari akun")
+            print()
+            print("Petunjuk:")
+            print("1. Masukkan nomor tugas untuk mengerjakan")
+            print("2. U untuk keluar dari akun")
+        else:
+            print("Belum ada tugas")
+            print()
+            print("Petunjuk:")
+            print("1. U untuk keluar dari akun")
 
         selected_menu = input("Silakan pilih menu >> ").upper()
         if selected_menu.lstrip("-").isdigit():
